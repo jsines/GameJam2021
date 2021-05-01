@@ -61,10 +61,10 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     private void PlayAnimation(){
-        if(rb.velocity.y > 0f){
+        if(rb.velocity.y > 0f && isJumping){
             anim.Play("Player_Jump");
         }
-        else if(rb.velocity.y <= 0f){
+        else if(rb.velocity.y <= 0f && isJumping){
             anim.Play("Player_Fall");
         }
         else if(Mathf.Abs(rb.velocity.x) > 0.2f){
