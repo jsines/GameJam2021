@@ -16,7 +16,7 @@ public class MonsterBehavior : MonoBehaviour {
     public float jumpForce; 
     
     // State Management 
-    [SerializeField] private MonsterState currentState = MonsterState.SlamState; 
+    public MonsterState currentState = MonsterState.SlamState; 
     [SerializeField] private float stateTimer; 
     [SerializeField] private MonsterState lastState = MonsterState.SlamState; 
     private float timeBetweenStates = 4f; 
