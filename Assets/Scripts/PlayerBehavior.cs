@@ -15,7 +15,7 @@ public class PlayerBehavior : MonoBehaviour
     private float moveDirection;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
