@@ -13,7 +13,7 @@ public class MonsterBehavior : MonoBehaviour {
     private bool facingRight;  
     private Animator anim;
     public Rigidbody2D rb;
-    private float movementSpeed = 50f; 
+    [SerializeField]private float movementSpeed = 500f; 
     private float jumpForce = 500f; 
 
     private bool actioned = false;
@@ -55,10 +55,11 @@ public class MonsterBehavior : MonoBehaviour {
 
     private void Charge(){ 
         if(actioned == false){
-            if(playerPos.localPosition.x > enemyPos.localPosition.x){ 
-                rb.AddForce(new Vector2(Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * movementSpeed, 0, 1000f), 0f)); 
-            } else if(playerPos.localPosition.x < enemyPos.localPosition.x){ 
-                rb.AddForce(new Vector2(-Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * movementSpeed, 0, 1000f), 0f)); 
+            float diff = playerPos.localPosition.x - enemyPos.localPosition.x;
+            if(diff > 0){ 
+                rb.AddForce(new Vector2(2000f, 0f)); 
+            } else if(diff < 0){ 
+                rb.AddForce(new Vector2(-2000f, 0f)); 
             } 
         }
         actioned = true;
