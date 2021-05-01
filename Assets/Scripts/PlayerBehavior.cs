@@ -8,6 +8,7 @@ public class PlayerBehavior : MonoBehaviour
     public float jumpForce;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private bool facingRight = true;
     private bool isJumping = false;
     private float moveDirection;
@@ -15,7 +16,8 @@ public class PlayerBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();   
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         ProcessInputs();
         FixRotation();
+        PlayAnimation();
     }
 
     private void FixedUpdate(){
@@ -56,4 +59,20 @@ public class PlayerBehavior : MonoBehaviour
         facingRight = !facingRight;
         transform.Rotate(0f, 180f, 0f);
     }
+
+    private void PlayAnimation(){
+        if(rb.velocity.y > 0f){
+            anim.Play("Player_Jump");
+        }
+        else if(rb.velocity.y <= 0f){
+            anim.Play("Player_Fall");
+        }
+        else if(Mathf.Abs(rb.velocity.x) > 0.2f){
+            anim.Play("Player_Run");
+        }
+        else{
+            anim.Play("Player_Idle");
+        }
+    }
+
 }
