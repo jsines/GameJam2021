@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float moveSpeed;
-    public float jumpForce;
+    public float moveSpeed = 3;
+    private float jumpForce = 400;
     Component deathCollider;
     private Rigidbody2D rb;
     private Animator anim;
     private bool facingRight = true;
     private bool isJumping = false;
     private float moveDirection;
-    
+
     // Start is called before the first frame update
     void Awake()
     {
