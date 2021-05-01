@@ -11,9 +11,9 @@ public class MonsterBehavior : MonoBehaviour {
     public Rigidbody2D rb; 
     public Transform playerPos; 
     public Transform enemyPos; 
-    public float movementSpeed; 
     private bool facingRight; 
-    public float jumpForce; 
+    private float movementSpeed = 1f; 
+    private float jumpForce = 500f; 
     
     // State Management 
     public MonsterState currentState = MonsterState.SlamState; 
