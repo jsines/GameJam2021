@@ -409,7 +409,7 @@ MonoBehaviour:
   rb: {fileID: 1125491614}
   playerPos: {fileID: 999194043}
   enemyPos: {fileID: 1125491617}
-  movementSpeed: 0.5
+  movementSpeed: 1
 --- !u!212 &1125491616
 SpriteRenderer:
   m_ObjectHideFlags: 0
