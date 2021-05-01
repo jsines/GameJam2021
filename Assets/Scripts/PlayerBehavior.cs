@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float moveSpeed = 3;
-    private float jumpForce = 400;
+    private float moveSpeed = 25f;
+    private float jumpForce = 2000f;
     Component deathCollider;
     private Rigidbody2D rb;
     private Animator anim;
@@ -15,12 +15,12 @@ public class PlayerBehavior : MonoBehaviour
     private float moveDirection;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         Component[] colliders = GetComponents(typeof(CapsuleCollider2D));
-        deathCollider = colliders[1];
+        deathCollider = colliders[0];
     }
 
     // Update is called once per frame
@@ -79,7 +79,7 @@ public class PlayerBehavior : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision){
         if(collision.name == "Monster"){
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

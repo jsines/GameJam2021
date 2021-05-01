@@ -10,11 +10,11 @@ public enum MonsterState{
 public class MonsterBehavior : MonoBehaviour {  
     public Transform playerPos; 
     public Transform enemyPos; 
-    public float movementSpeed; 
-    private bool facingRight; 
-    public float jumpForce; 
+    private bool facingRight;  
     private Animator anim;
     public Rigidbody2D rb;
+    private float movementSpeed = 1f; 
+    private float jumpForce = 500f; 
     
     // State Management 
     public MonsterState currentState = MonsterState.SlamState; 
