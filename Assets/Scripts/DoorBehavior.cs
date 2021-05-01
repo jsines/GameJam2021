@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class DoorBehavior : MonoBehaviour
 {
+    private int buttonsPressed = 0;
+    private int totalButtons;
+    public Transform buttonHolder;
     // Start is called before the first frame update
     void Start()
     {
-        
+        totalButtons = buttonHolder.childCount;
     }
 
     // Update is called once per frame
@@ -17,6 +20,9 @@ public class DoorBehavior : MonoBehaviour
     }
 
     public void TriggerDoor(){
-        Destroy(gameObject);
+        buttonsPressed += 1;
+        if(totalButtons == buttonsPressed){
+            Destroy(gameObject);
+        }
     }
 }
