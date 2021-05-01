@@ -13,8 +13,10 @@ public class MonsterBehavior : MonoBehaviour {
     private bool facingRight;  
     private Animator anim;
     public Rigidbody2D rb;
-    private float movementSpeed = 1f; 
+    private float movementSpeed = 23f; 
     private float jumpForce = 500f; 
+
+    private bool actioned = false;
     
     // State Management 
     public MonsterState currentState = MonsterState.SlamState; 
@@ -40,34 +42,38 @@ public class MonsterBehavior : MonoBehaviour {
         stateTimer += Time.deltaTime; 
         if(stateTimer >= timeBetweenStates){ 
             stateTimer -= timeBetweenStates;
-            if(lastState == MonsterState.FreeState){
-                currentState = MonsterState.ChargeState;
-            }else if(lastState == MonsterState.ChargeState){
+            if(lastState == MonsterState.ChargeState){
                 currentState = MonsterState.SlamState; 
+                actioned = false;
             }else if(lastState == MonsterState.SlamState){ 
                 currentState = MonsterState.ChargeState; 
+                actioned = false;
             }
             lastState = currentState;
         }
     }
 
     private void Charge(){ 
-        if(playerPos.localPosition.x > enemyPos.localPosition.x){ 
-            rb.AddForce(new Vector2(Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 120, 0, 350), 0f)); 
-        } else if(playerPos.localPosition.x < enemyPos.localPosition.x){ 
-            rb.AddForce(new Vector2(-Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 120, 0, 350), 0f)); 
-        } 
-        currentState = MonsterState.FreeState;
+        if(actioned == false){
+            if(playerPos.localPosition.x > enemyPos.localPosition.x){ 
+                rb.AddForce(new Vector2(Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * movementSpeed, 0, 2000f), 0f)); 
+            } else if(playerPos.localPosition.x < enemyPos.localPosition.x){ 
+                rb.AddForce(new Vector2(-Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * movementSpeed, 0, 2000f), 0f)); 
+            } 
+        }
+        actioned = true;
     } 
     private void Slam(){ 
-        if(playerPos.localPosition.x > enemyPos.localPosition.x){
-            rb.AddForce(new Vector2(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 20, jumpForce)); 
-        }
-        else if(playerPos.localPosition.x < enemyPos.localPosition.x){
-            rb.AddForce(new Vector2(-Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 20, jumpForce)); 
-        }
-        currentState = MonsterState.FreeState;
-    } 
+        if(actioned == false){
+            if(playerPos.localPosition.x > enemyPos.localPosition.x){
+                rb.AddForce(new Vector2(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 20, jumpForce)); 
+            }
+            else if(playerPos.localPosition.x < enemyPos.localPosition.x){
+                rb.AddForce(new Vector2(-Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 20, jumpForce)); 
+            }
+        } 
+        actioned = true;
+    }
     private void FixRotation(){ 
         if(rb.velocity.x < 0 && !facingRight){ 
             FlipCharacter(); 
@@ -81,13 +87,15 @@ public class MonsterBehavior : MonoBehaviour {
     } 
     private void PlayAnimation(){
         if(rb.velocity.y != 0f){
-            anim.Play("Monster_Slam");
+            anim.Play("Monster_Slam2");
         }else if(currentState == MonsterState.ChargeState){
-            anim.Play("Monster_Charge");
+            anim.Play("Monster_Charge2");
+        }else if(currentState == MonsterState.ChargeState && rb.velocity.x == 0){
+            anim.Play("Monster_Idle2");
         }else if(rb.velocity.x != 0f){
-            anim.Play("Monster_Run");
+            anim.Play("Monster_Run2");
         }else{
-            anim.Play("Monster_Idle");
+            anim.Play("Monster_Idle2");
         }
     }
 }
