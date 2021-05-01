@@ -52,7 +52,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Move(){
         rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
-        if(isJumping){
+        if(isJumping && rb.velocity.y == 0){
             rb.AddForce(new Vector2(0f, jumpForce));
         }
         isJumping = false;
@@ -64,10 +64,10 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     private void PlayAnimation(){
-        if(rb.velocity.y > 0f && isJumping){
+        if(rb.velocity.y > 0f){
             anim.Play("Player_Jump");
         }
-        else if(rb.velocity.y <= 0f && isJumping){
+        else if(rb.velocity.y < 0f){
             anim.Play("Player_Fall");
         }
         else if(Mathf.Abs(rb.velocity.x) > 0.2f){
