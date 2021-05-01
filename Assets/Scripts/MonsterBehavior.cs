@@ -7,19 +7,25 @@ public enum MonsterState{
     ChargeState, 
     SlamState 
 } 
-public class MonsterBehavior : MonoBehaviour { 
-    public Rigidbody2D rb; 
+public class MonsterBehavior : MonoBehaviour {  
     public Transform playerPos; 
     public Transform enemyPos; 
     public float movementSpeed; 
     private bool facingRight; 
     public float jumpForce; 
+    private Animator anim;
+    public Rigidbody2D rb;
     
     // State Management 
     public MonsterState currentState = MonsterState.SlamState; 
     [SerializeField] private float stateTimer; 
     [SerializeField] private MonsterState lastState = MonsterState.SlamState; 
     private float timeBetweenStates = 4f; 
+    void Awake(){
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
+    
     void Update() { 
         if(currentState == MonsterState.ChargeState){ 
             Charge(); 
@@ -28,6 +34,7 @@ public class MonsterBehavior : MonoBehaviour {
         } 
         FixRotation(); 
         UpdateState(); 
+        PlayAnimation();
     } 
     private void UpdateState(){ 
         stateTimer += Time.deltaTime; 
@@ -72,4 +79,15 @@ public class MonsterBehavior : MonoBehaviour {
         facingRight = !facingRight; 
         transform.Rotate(0f, 180f, 0f); 
     } 
+    private void PlayAnimation(){
+        if(rb.velocity.y != 0f){
+            anim.Play("Monster_Slam");
+        }else if(currentState == MonsterState.ChargeState){
+            anim.Play("Monster_Charge");
+        }else if(rb.velocity.x != 0f){
+            anim.Play("Monster_Run");
+        }else{
+            anim.Play("Monster_Idle");
+        }
+    }
 }
