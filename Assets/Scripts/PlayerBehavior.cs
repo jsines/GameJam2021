@@ -13,8 +13,7 @@ public class PlayerBehavior : MonoBehaviour
     private bool facingRight = true;
     private bool isJumping = false;
     private float moveDirection;
-    private bool dead = false;
-
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,15 +26,13 @@ public class PlayerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            ProcessInputs();
-            FixRotation();
-            PlayAnimation();
+        ProcessInputs();
+        FixRotation();
+        PlayAnimation();
     }
 
     private void FixedUpdate(){
-        if(!dead){
-            Move();
-        }
+        Move();
     }
 
     private void ProcessInputs(){
