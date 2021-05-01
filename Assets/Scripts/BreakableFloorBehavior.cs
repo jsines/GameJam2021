@@ -19,8 +19,6 @@ public class BreakableFloorBehavior : MonoBehaviour
         if(collision.name == "Monster"){
             MonsterBehavior monster = collision.gameObject.GetComponent<MonsterBehavior>();
             if(monster.rb.velocity.y < 0){
-                Debug.Log("Destroyed with m");
-
                 Destroy(gameObject);
             }
         }

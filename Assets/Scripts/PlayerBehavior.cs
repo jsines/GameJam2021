@@ -1,35 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
-
+    Component deathCollider;
     private Rigidbody2D rb;
     private Animator anim;
     private bool facingRight = true;
     private bool isJumping = false;
     private float moveDirection;
+    private bool dead = false;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        Component[] colliders = GetComponents(typeof(CapsuleCollider2D));
+        deathCollider = colliders[1];
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProcessInputs();
-        FixRotation();
-        PlayAnimation();
+            ProcessInputs();
+            FixRotation();
+            PlayAnimation();
     }
 
     private void FixedUpdate(){
-        Move();
+        if(!dead){
+            Move();
+        }
     }
 
     private void ProcessInputs(){
@@ -74,5 +80,9 @@ public class PlayerBehavior : MonoBehaviour
             anim.Play("Player_Idle");
         }
     }
-
+    void OnTriggerEnter2D(Collider2D collision){
+        if(collision.name == "Monster"){
+            SceneManager.LoadScene("GameScene");
+        }
+    }
 }
