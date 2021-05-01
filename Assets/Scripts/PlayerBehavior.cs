@@ -6,13 +6,14 @@ public class PlayerBehavior : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
+
     private Rigidbody2D rb;
     private bool facingRight = true;
     private bool isJumping = false;
     private float moveDirection;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();   
     }
@@ -22,6 +23,9 @@ public class PlayerBehavior : MonoBehaviour
     {
         ProcessInputs();
         FixRotation();
+    }
+
+    private void FixedUpdate(){
         Move();
     }
 
