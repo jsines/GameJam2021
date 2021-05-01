@@ -6,20 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public Button playButton;
-
     // Start is called before the first frame update
     void Start()
     {
-        playButton.onClick.AddListener(LoadGame);
     }
 
-    void LoadGame(){
-        SceneManager.LoadScene("GameScene");
-    }
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.anyKey){
+            Debug.Log("Input detected");
+            SceneManager.LoadScene("Level1");
+        }
     }
 }
