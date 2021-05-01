@@ -442,16 +442,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1529402236400559554, guid: 9093c8f88fdf03044a3042f0cf249254, type: 3}
+      propertyPath: jumpForce
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529402236400559554, guid: 9093c8f88fdf03044a3042f0cf249254, type: 3}
       propertyPath: playerPos
       value: 
       objectReference: {fileID: 999194043}
+    - target: {fileID: 1529402236400559554, guid: 9093c8f88fdf03044a3042f0cf249254, type: 3}
+      propertyPath: movementSpeed
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 1529402236400559612, guid: 9093c8f88fdf03044a3042f0cf249254, type: 3}
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1529402236400559612, guid: 9093c8f88fdf03044a3042f0cf249254, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1529402236400559612, guid: 9093c8f88fdf03044a3042f0cf249254, type: 3}
       propertyPath: m_LocalPosition.y

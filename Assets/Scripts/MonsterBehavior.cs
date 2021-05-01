@@ -46,14 +46,19 @@ public class MonsterBehavior : MonoBehaviour {
 
     private void Charge(){ 
         if(playerPos.localPosition.x > enemyPos.localPosition.x){ 
-            rb.AddForce(new Vector2(movementSpeed, 0f)); 
+            rb.AddForce(new Vector2(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 85, 0f)); 
         } else if(playerPos.localPosition.x < enemyPos.localPosition.x){ 
-            rb.AddForce(new Vector2(-movementSpeed, 0f)); 
+            rb.AddForce(new Vector2(-Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 85, 0f)); 
         } 
         currentState = MonsterState.FreeState;
     } 
     private void Slam(){ 
-        rb.AddForce(new Vector2(0f, jumpForce)); 
+        if(playerPos.localPosition.x > enemyPos.localPosition.x){
+            rb.AddForce(new Vector2(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 20, jumpForce)); 
+        }
+        else if(playerPos.localPosition.x < enemyPos.localPosition.x){
+            rb.AddForce(new Vector2(-Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 20, jumpForce)); 
+        }
         currentState = MonsterState.FreeState;
     } 
     private void FixRotation(){ 
