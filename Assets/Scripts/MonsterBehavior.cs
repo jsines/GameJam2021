@@ -13,7 +13,7 @@ public class MonsterBehavior : MonoBehaviour {
     private bool facingRight;  
     private Animator anim;
     public Rigidbody2D rb;
-    private float movementSpeed = 23f; 
+    private float movementSpeed = 50f; 
     private float jumpForce = 500f; 
 
     private bool actioned = false;
@@ -56,9 +56,9 @@ public class MonsterBehavior : MonoBehaviour {
     private void Charge(){ 
         if(actioned == false){
             if(playerPos.localPosition.x > enemyPos.localPosition.x){ 
-                rb.AddForce(new Vector2(Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * movementSpeed, 0, 2000f), 0f)); 
+                rb.AddForce(new Vector2(Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * movementSpeed, 0, 1000f), 0f)); 
             } else if(playerPos.localPosition.x < enemyPos.localPosition.x){ 
-                rb.AddForce(new Vector2(-Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * movementSpeed, 0, 2000f), 0f)); 
+                rb.AddForce(new Vector2(-Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * movementSpeed, 0, 1000f), 0f)); 
             } 
         }
         actioned = true;
@@ -88,10 +88,10 @@ public class MonsterBehavior : MonoBehaviour {
     private void PlayAnimation(){
         if(rb.velocity.y != 0f){
             anim.Play("Monster_Slam2");
+        }else if(Mathf.Abs(rb.velocity.x) < 0.2){
+            anim.Play("Monster_Idle2");
         }else if(currentState == MonsterState.ChargeState){
             anim.Play("Monster_Charge2");
-        }else if(currentState == MonsterState.ChargeState && rb.velocity.x == 0){
-            anim.Play("Monster_Idle2");
         }else if(rb.velocity.x != 0f){
             anim.Play("Monster_Run2");
         }else{
