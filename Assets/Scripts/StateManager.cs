@@ -43,7 +43,9 @@ public class GameState {
         EndingDialogue
     }
     public void IncrementTurn(){
-        turn++;
+        if(turn != 7){
+            turn++;
+        }
     }
     public void SetStateFromTurn(){
         if(turn == 0){
