@@ -5,11 +5,18 @@ using UnityEngine;
 public class ButtonBehavior : MonoBehaviour
 {
     Component buttonPressure;
-    [SerializeField] bool buttonPressed;
+    private bool buttonPressed;
+    public GameObject associatedDoor;
+
+    //Sprite
+    public SpriteRenderer spriteRenderer;
+    public Sprite newSprite;
+
     // Start is called before the first frame update
     void Start()
     {
         buttonPressure = GetComponent<BoxCollider2D>();
+        associatedDoor = GameObject.Find("Door");
     }
 
     // Update is called once per frame
@@ -19,13 +26,15 @@ public class ButtonBehavior : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision){
-        if(collision.name == "Monster"){
+        if(collision.name == "Monster" && !buttonPressed){
             buttonPressed = true;
+            DoorBehavior doorScript = associatedDoor.GetComponent<DoorBehavior>();
+            doorScript.TriggerDoor();
+            ChangeSprite();
         }
     }
-    void OnTriggerExit2D(Collider2D collision){
-        if(collision.name == "Monster"){
-            buttonPressed = false;
-        }
+
+    void ChangeSprite(){
+        spriteRenderer.sprite = newSprite;
     }
 }
