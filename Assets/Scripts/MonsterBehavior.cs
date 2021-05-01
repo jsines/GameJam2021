@@ -46,9 +46,9 @@ public class MonsterBehavior : MonoBehaviour {
 
     private void Charge(){ 
         if(playerPos.localPosition.x > enemyPos.localPosition.x){ 
-            rb.AddForce(new Vector2(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 85, 0f)); 
+            rb.AddForce(new Vector2(Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 120, 0, 350), 0f)); 
         } else if(playerPos.localPosition.x < enemyPos.localPosition.x){ 
-            rb.AddForce(new Vector2(-Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 85, 0f)); 
+            rb.AddForce(new Vector2(-Mathf.Clamp(Mathf.Abs(playerPos.localPosition.x - enemyPos.localPosition.x) * 120, 0, 350), 0f)); 
         } 
         currentState = MonsterState.FreeState;
     } 
