@@ -14,7 +14,7 @@ public class MonsterBehavior : MonoBehaviour {
     private Animator anim;
     public Rigidbody2D rb;
     [SerializeField]private float movementSpeed = 500f; 
-    private float jumpForce = 500f; 
+    private float jumpForce = 800f;
     public int waitTime = 180;
     private int waitTimeTimer = 0;
 

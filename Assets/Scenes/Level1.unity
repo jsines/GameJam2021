@@ -474,7 +474,7 @@ PrefabInstance:
     - target: {fileID: 8022830996397737437, guid: c59b818c67849e7419b3758f26b827bf, type: 3}
       propertyPath: monster
       value: 
-      objectReference: {fileID: 1950579596}
+      objectReference: {fileID: 1950579590}
     - target: {fileID: 8022830996397737438, guid: c59b818c67849e7419b3758f26b827bf, type: 3}
       propertyPath: m_BodyType
       value: 0
@@ -919,9 +919,9 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1950579596 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7305260906883619532, guid: 492b5494f501ef34e8a042be11e3a018, type: 3}
+--- !u!1 &1950579590 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7305260906883619539, guid: 492b5494f501ef34e8a042be11e3a018, type: 3}
   m_PrefabInstance: {fileID: 7444307645795228863}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1979434176

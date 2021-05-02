@@ -16,7 +16,7 @@ public class PlayerBehavior : MonoBehaviour
     private float lowJumpMultiplier = 10f;
     private float fallMultiplier = 10f;
     
-    public Transform monster;
+    public GameObject monster;
     public Vector3[] lastCheckpoint = new Vector3[2];
 
     // Start is called before the first frame update
@@ -48,6 +48,9 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     private void ProcessInputs(){
+        if(Input.inputString.Contains("r")){
+            MoveToCheckpoint();
+        }
         moveDirection = Input.GetAxis("Horizontal");
         isJumping = Input.GetButton("Jump");
     }
@@ -92,9 +95,9 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     void MoveToCheckpoint(){
-        print(lastCheckpoint[0]);
         transform.localPosition = lastCheckpoint[0];
-        monster.localPosition = lastCheckpoint[1];
+        monster.transform.localPosition = lastCheckpoint[1];
+        monster.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
     }
 
     void OnTriggerEnter2D(Collider2D collision){
