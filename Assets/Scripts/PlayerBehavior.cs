@@ -23,7 +23,6 @@ public class PlayerBehavior : MonoBehaviour
     void Start()
     {
         if(lastCheckpoint[0] == new Vector3(0,0,0)){
-            print("TRUE!");
             lastCheckpoint[0] = new Vector3(-33.5f, 35.9f, 0f);
             lastCheckpoint[1] = new Vector3(4f, 3.3f, 0f);
         }

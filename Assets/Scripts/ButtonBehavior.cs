@@ -12,10 +12,14 @@ public class ButtonBehavior : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite newSprite;
 
+    //Audio
+    private AudioSource aSrc;
+
     // Start is called before the first frame update
     void Start()
     {
         buttonPressure = GetComponent<BoxCollider2D>();
+        aSrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,6 +33,7 @@ public class ButtonBehavior : MonoBehaviour
             buttonPressed = true;
             DoorBehavior doorScript = associatedDoor.GetComponent<DoorBehavior>();
             doorScript.TriggerDoor();
+            aSrc.Play();
             ChangeSprite();
         }
     }

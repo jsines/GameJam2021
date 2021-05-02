@@ -26,7 +26,6 @@ public class MainMenu : MonoBehaviour
             offset *= -1;
         }
         if(Input.anyKey){
-            Debug.Log("Input detected");
             SceneManager.LoadScene("Level1");
         }
     }

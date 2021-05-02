@@ -12,6 +12,7 @@ public class MonsterBehavior : MonoBehaviour {
     public Transform enemyPos; 
     private bool facingRight;  
     private Animator anim;
+    private AudioSource aSrc;
     public Rigidbody2D rb;
     [SerializeField]private float movementSpeed = 500f; 
     private float jumpForce = 800f;
@@ -29,6 +30,7 @@ public class MonsterBehavior : MonoBehaviour {
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        aSrc = GetComponent<AudioSource>();
     }
     
     void Update() { 
@@ -41,6 +43,9 @@ public class MonsterBehavior : MonoBehaviour {
             FixRotation(); 
             UpdateState(); 
             PlayAnimation();
+        }
+        if(currentState == MonsterState.SlamState && rb.velocity.y == 0){
+            aSrc.Play();
         }
         waitTimeTimer += 1;
     } 
