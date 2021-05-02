@@ -16,7 +16,6 @@ public class ButtonBehavior : MonoBehaviour
     void Start()
     {
         buttonPressure = GetComponent<BoxCollider2D>();
-        associatedDoor = GameObject.Find("Door");
     }
 
     // Update is called once per frame
