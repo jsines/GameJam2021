@@ -13,7 +13,8 @@ public class PlayerBehavior : MonoBehaviour
     private bool facingRight = true;
     private bool isJumping = false;
     private float moveDirection;
-
+    private float lowJumpMultiplier = 10f;
+    private float fallMultiplier = 10f;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +38,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void ProcessInputs(){
         moveDirection = Input.GetAxis("Horizontal");
-        if(Input.GetButtonDown("Jump")){
-            isJumping = true;
-        }
+        isJumping = Input.GetButton("Jump");
     }
 
     private void FixRotation(){
@@ -54,8 +53,11 @@ public class PlayerBehavior : MonoBehaviour
         rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
         if(isJumping && rb.velocity.y == 0){
             rb.AddForce(new Vector2(0f, jumpForce));
+        } else if(rb.velocity.y < 0){
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        } else if(rb.velocity.y > 0 && !isJumping){
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
-        isJumping = false;
     }
 
     private void FlipCharacter(){
