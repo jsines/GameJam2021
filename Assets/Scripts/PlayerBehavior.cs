@@ -15,13 +15,24 @@ public class PlayerBehavior : MonoBehaviour
     private float moveDirection;
     private float lowJumpMultiplier = 10f;
     private float fallMultiplier = 10f;
+    
+    public Transform monster;
+    public Vector3[] lastCheckpoint = new Vector3[2];
+
     // Start is called before the first frame update
     void Start()
     {
+        if(lastCheckpoint[0] == new Vector3(0,0,0)){
+            print("TRUE!");
+            lastCheckpoint[0] = new Vector3(-33.5f, 35.9f, 0f);
+            lastCheckpoint[1] = new Vector3(4f, 3.3f, 0f);
+        }
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         Component[] colliders = GetComponents(typeof(CapsuleCollider2D));
         deathCollider = colliders[0];
+
+        MoveToCheckpoint();
     }
 
     // Update is called once per frame
@@ -79,9 +90,16 @@ public class PlayerBehavior : MonoBehaviour
             anim.Play("Player_Idle");
         }
     }
+
+    void MoveToCheckpoint(){
+        print(lastCheckpoint[0]);
+        transform.localPosition = lastCheckpoint[0];
+        monster.localPosition = lastCheckpoint[1];
+    }
+
     void OnTriggerEnter2D(Collider2D collision){
         if(collision.name == "Monster"){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            MoveToCheckpoint();
         }
     }
 }

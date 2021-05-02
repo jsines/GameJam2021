@@ -15,6 +15,8 @@ public class MonsterBehavior : MonoBehaviour {
     public Rigidbody2D rb;
     [SerializeField]private float movementSpeed = 500f; 
     private float jumpForce = 500f; 
+    public int waitTime = 180;
+    private int waitTimeTimer = 0;
 
     private bool actioned = false;
     
@@ -23,21 +25,26 @@ public class MonsterBehavior : MonoBehaviour {
     [SerializeField] private float stateTimer; 
     [SerializeField] private MonsterState lastState = MonsterState.SlamState; 
     private float timeBetweenStates = 4f; 
+
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
     
     void Update() { 
-        if(currentState == MonsterState.ChargeState){ 
-            Charge(); 
-        }else if(currentState == MonsterState.SlamState){ 
-            Slam(); 
-        } 
-        FixRotation(); 
-        UpdateState(); 
-        PlayAnimation();
+        if(waitTimeTimer >= waitTime){
+            if(currentState == MonsterState.ChargeState){ 
+                Charge(); 
+            }else if(currentState == MonsterState.SlamState){ 
+                Slam(); 
+            } 
+            FixRotation(); 
+            UpdateState(); 
+            PlayAnimation();
+        }
+        waitTimeTimer += 1;
     } 
+
     private void UpdateState(){ 
         stateTimer += Time.deltaTime; 
         if(stateTimer >= timeBetweenStates){ 

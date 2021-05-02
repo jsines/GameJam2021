@@ -18,9 +18,7 @@ public class BreakableFloorBehavior : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision){
         if(collision.name == "Monster"){
             MonsterBehavior monster = collision.gameObject.GetComponent<MonsterBehavior>();
-            if(monster.rb.velocity.y < 0){
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 
